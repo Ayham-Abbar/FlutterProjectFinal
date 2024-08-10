@@ -142,9 +142,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     String path,
     Map<String, dynamic> userData,
   ) async {
+    await CacheData.setData(key: 'ID', value: '1');
     await CacheData.setData(key: 'UserName', value: userData['UserName']);
     await CacheData.setData(key: 'Password', value: userData['Password']);
     await CacheData.setData(key: 'Email', value: userData['Email']);
     await Api2.addUser(path, userData);
+    CacheData.setLogin(true);
   }
 }

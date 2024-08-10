@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Global/Menu/menu.dart';
 import 'package:flutter_application_2/Pages/Global/Response/product.dart';
+import 'package:flutter_application_2/Pages/Global/widgetListProduct.dart';
 import 'package:flutter_application_2/Pages/Products/widgetProduct.dart';
 import 'package:flutter_application_2/Pages/Services/api.dart';
 import 'package:infinite_carousel/infinite_carousel.dart';
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               itemExtent: MediaQuery.of(context).size.width,
               itemBuilder: (context, index, _) {
                 return Container(
-                  margin: const EdgeInsets.only(left: 2, right: 2),
+                  margin: const EdgeInsets.only(left: 2, right: 10),
                   child: Column(
                     children: [
                       Expanded(
@@ -83,12 +84,16 @@ class _HomePageState extends State<HomePage> {
                     child: products == null || products!.isEmpty
                         ? const Text(
                             'There was an error while fetching data from the server')
-                        : WidgetProduct(products: products!),
+                        : _productWidget(),
                   ),
           ),
         ],
       ),
     );
+  }
+
+  Widget _productWidget() {
+    return WidgetProduct(products: products!);
   }
 
   Future<void> _init() async {

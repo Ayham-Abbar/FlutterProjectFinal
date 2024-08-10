@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Cart/Cart.dart';
 import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
 import 'package:flutter_application_2/Pages/Global/Menu/drawer.dart';
+import 'package:flutter_application_2/Pages/Global/Menu/searchProduct.dart';
 import 'package:provider/provider.dart';
 
 class Menu extends StatefulWidget {
@@ -36,37 +37,11 @@ class _MenuState extends State<Menu> {
         actions: [
           Row(
             children: [
-              Container(
-                alignment: Alignment.center,
-                color: Color(0xFF2E7DAB),
-                width: 150,
-                height: 35,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: TextFormField(
-                          controller: _searchControlers,
-                          decoration: InputDecoration(
-                            contentPadding:
-                                EdgeInsets.symmetric(vertical: 10.0),
-                            hintText: 'Search',
-                          ),
-                          onChanged: (query) {
-                            // Provider.of<ProductProvider>(context, listen: false)
-                            //     .searchProducts(query);
-                          },
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.search),
-                    ),
-                  ],
-                ),
-              ),
+              IconButton(
+                  onPressed: () {
+                    showSearch(context: context, delegate: SearchProduct());
+                  },
+                  icon: Icon(Icons.search)),
               Consumer<Cart>(
                 builder: (context, value, child) {
                   return Text(

@@ -35,7 +35,6 @@ class _ListProductState extends State<ListProduct> {
           padding: const EdgeInsets.symmetric(vertical: 20.0 / 4),
           child: Text(
             widget.product.title,
-            // style: TextStyle(color: Theme.of(context).cardTheme.color),
           ),
         ),
         Row(
@@ -43,7 +42,6 @@ class _ListProductState extends State<ListProduct> {
           children: [
             Text(
               "\$${widget.product.price}",
-              style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Consumer<Cart>(
               builder: (context, value, child) => IconButton(

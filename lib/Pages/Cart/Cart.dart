@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
+import 'package:flutter_application_2/Pages/Services/Cache/sheredPrafrences.dart';
 import 'package:flutter_application_2/Pages/Services/dbOrder.dart';
 import 'package:provider/provider.dart';
 
@@ -12,11 +13,18 @@ class CheckOut extends StatefulWidget {
 
 class _CheckOutState extends State<CheckOut> {
   @override
+  void initState() {
+    SqlDb.intialDb();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+        appBar:
+         AppBar(
           title: const Text('CheckOut'),
-          backgroundColor: Color.fromARGB(255, 66, 165, 168),
+          
         ),
         body: ListCheckOut());
   }
@@ -53,20 +61,24 @@ class ListCheckOut extends StatelessWidget {
         Expanded(
             child: InkWell(
           onTap: () async {
-            // SqlDb.intialDb();
-            SqlDb.insertData(
-                "INSERT INTO 'orders'('User','total_price','count')  VALUES('Ayham','3','8') ");
-            //
-            model.removeAll();
+            if (model.products.isEmpty) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('السلة فارغة ...')));
+            } else {
+              await SqlDb.insertData(
+                  "INSERT INTO 'orders'('User','total_price','count')  VALUES('${CacheData.getData(key: 'UserName')}','${model.totalPrice.toString()}','${model.count.toString()}') ");
+              //
+              model.removeAll();
+            }
           },
           child: Container(
             width: double.infinity,
-            color: const Color.fromARGB(255, 1, 173, 122),
+            color: Color(0xFFF6B26B),
             child: const Center(
-                child: const Text(
-              'Add To Cart',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            )),
+                child: const Text('BUY NOW',
+                    style: TextStyle(color: Colors.white, fontSize: 20)
+                    // style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
           ),
         ))
       ],

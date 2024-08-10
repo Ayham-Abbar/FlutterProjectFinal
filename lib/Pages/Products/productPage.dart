@@ -96,9 +96,10 @@ class _ProductPageState extends State<ProductPage> {
                       // products =
                       //     value.products.isEmpty ? products : value.products;
 
-                      return WidgetProduct(
+                      return WidgetProduct( 
                         products: products,
-
+                        // limit: limit,
+                        // skip: skip,
                       );
                     },
                   )

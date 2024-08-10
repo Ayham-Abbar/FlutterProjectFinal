@@ -17,6 +17,7 @@ class SqlDb {
     String path = join(datapath, 'eaxm.db');
     Database mydb = await openDatabase(path,
         onCreate: _onCreate, version: 1, onUpgrade: _onUpgrade);
+    print('intialDb....................');
     return mydb;
   }
 
@@ -29,7 +30,7 @@ class SqlDb {
   static _onCreate(Database db, int version) async {
     // Batch batch = db.batch();
 
-   await db.execute('''
+    await db.execute('''
     CREATE TABLE "orders"(
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,
     "User" TEXT,
@@ -38,7 +39,7 @@ class SqlDb {
 
     )
     ''');
-  //   await batch.commit();
+    //   await batch.commit();
     print("create");
   }
 
@@ -51,6 +52,7 @@ class SqlDb {
   static insertData(String sql) async {
     Database? mydb = await db;
     int response = await mydb!.rawInsert(sql);
+    print('insert data......................');
     return response;
   }
 
@@ -65,4 +67,5 @@ class SqlDb {
     int response = await mydb!.rawDelete(sql);
     return response;
   }
+
 }

@@ -93,4 +93,23 @@ class Api2 {
       return false;
     }
   }
+
+  static Future<void> updateUser(
+      String id, Map<String, String> userData) async {
+    final url = Uri.parse('http://dummyjson.com/users/$id');
+
+    final response = await http.put(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({userData}),
+    );
+    if (response.statusCode == 200) {
+      print('Updata User Data');
+    } else {
+      // Error occurred
+      print('Not Updata User Data');
+    }
+  }
 }

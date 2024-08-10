@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Cart/Cart.dart';
 import 'package:flutter_application_2/Pages/Home/home_page.dart';
+import 'package:flutter_application_2/Pages/Order/order.dart';
 import 'package:flutter_application_2/Pages/Products/productPage.dart';
+import 'package:flutter_application_2/Pages/Services/Cache/sheredPrafrences.dart';
 import 'package:flutter_application_2/Pages/auth/Login/login.dart';
 import 'package:flutter_application_2/Pages/auth/Register/register.dart';
+import 'package:flutter_application_2/Pages/auth/Update_Page/update_user.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -17,11 +20,14 @@ class MyDrawer extends StatelessWidget {
               child: Image.network(
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSJOq3G0UhNuAM6FuhLOaUsVLQ3qqE3vpqmQ&s',
           )),
-          ListTile(
-              leading: const Icon(Icons.account_box_outlined),
-              title: const Text('Profile'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const ProductPage()))),
+          Visibility(
+            visible: CacheData.getLogin(),
+            child: ListTile(
+                leading: const Icon(Icons.account_box_outlined),
+                title: const Text('Profile'),
+                onTap: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => UpdateUserPage()))),
+          ),
           ListTile(
               leading: const Icon(Icons.home),
               title: const Text('Home'),
@@ -33,10 +39,18 @@ class MyDrawer extends StatelessWidget {
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const ProductPage()))),
           ListTile(
-              leading: const Icon(Icons.shopify_sharp),
+              leading: const Icon(Icons.shopping_cart),
               title: const Text('Cart'),
               onTap: () => Navigator.of(context)
                   .push(MaterialPageRoute(builder: (_) => const CheckOut()))),
+          Visibility(
+            visible: CacheData.getLogin(),
+            child: ListTile(
+                leading: const Icon(Icons.shopify_outlined),
+                title: const Text('Order'),
+                onTap: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => RecordsPage()))),
+          ),
           ListTile(
               leading: const Icon(Icons.login),
               title: const Text('LogIn'),
@@ -47,13 +61,23 @@ class MyDrawer extends StatelessWidget {
               title: const Text('Sign Up'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const SignUpScreen()))),
-          ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Loge Out'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const ProductPage()))),
+          Visibility(
+            visible: CacheData.getLogin(),
+            child: ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Loge Out'),
+                onTap: () {
+                  logOut();
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => const HomePage()));
+                }),
+          ),
         ],
       ),
     );
+  }
+
+  logOut() async {
+    CacheData.setData(key: 'isLogin', value: false);
   }
 }

@@ -100,11 +100,10 @@ class LoginScreen extends StatelessWidget {
     if ((await CacheData.getData(key: 'UserName') == userData['UserName'] &&
             await CacheData.getData(key: 'Password') == userData['Password']) ||
         await Api2.loginUser(userData)) {
-      print('nooooooo');
       Navigator.push(
           context, MaterialPageRoute(builder: (_) => const HomePage()));
+      CacheData.setLogin(true);
     } else {
-      print('yessssss');
       Navigator.push(
           context, MaterialPageRoute(builder: (_) => const SignUpScreen()));
     }
