@@ -59,7 +59,7 @@ class SearchProduct extends SearchDelegate {
     } else {
       productsFilter = products.where((e) => e.title.contains(query)).toList();
       return ListView.builder(
-        itemCount: products.length,
+        itemCount: productsFilter!.length,
         itemBuilder: (context, index) => InkWell(
             onTap: () {
               Navigator.push(

@@ -33,7 +33,6 @@ class _MenuState extends State<Menu> {
         title: Text(
           widget.title,
         ),
-        // iconTheme: IconThemeData(color: Colors.black), // لون الأيقونات أسود
         actions: [
           Row(
             children: [

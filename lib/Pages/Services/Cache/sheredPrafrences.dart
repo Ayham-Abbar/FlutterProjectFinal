@@ -10,7 +10,7 @@ class CacheData {
 
   static setLogin(bool isLogin) async {
     CacheData.cacheInitialization();
-    await CacheData.setData(key: 'isLogin', value: isLogin);
+    await CacheData.setData(key: 'isLogin', value:  );
   }
 
   static getLogin() {

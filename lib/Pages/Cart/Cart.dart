@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
 import 'package:flutter_application_2/Pages/Services/Cache/sheredPrafrences.dart';
 import 'package:flutter_application_2/Pages/Services/dbOrder.dart';
+import 'package:flutter_application_2/Pages/auth/Login/login.dart';
 import 'package:provider/provider.dart';
 
 class CheckOut extends StatefulWidget {
@@ -21,10 +22,8 @@ class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:
-         AppBar(
+        appBar: AppBar(
           title: const Text('CheckOut'),
-          
         ),
         body: ListCheckOut());
   }
@@ -65,10 +64,15 @@ class ListCheckOut extends StatelessWidget {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text('السلة فارغة ...')));
             } else {
-              await SqlDb.insertData(
-                  "INSERT INTO 'orders'('User','total_price','count')  VALUES('${CacheData.getData(key: 'UserName')}','${model.totalPrice.toString()}','${model.count.toString()}') ");
-              //
-              model.removeAll();
+              if (CacheData.getLogin()) {
+                await SqlDb.insertData(
+                    "INSERT INTO 'orders'('User','total_price','count')  VALUES('${CacheData.getData(key: 'UserName')}','${model.totalPrice.toString()}','${model.count.toString()}') ");
+                //
+                model.removeAll();
+              } else {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()));
+              }
             }
           },
           child: Container(

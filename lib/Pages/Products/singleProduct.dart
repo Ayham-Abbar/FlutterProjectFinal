@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Pages/Cart/Cart.dart';
 import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
 import 'package:flutter_application_2/Pages/Global/Menu/menu.dart';
 import 'package:flutter_application_2/Pages/Global/Response/product.dart';
@@ -63,7 +64,10 @@ class _SinglePageState extends State<SinglePage> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => CheckOut()));
+              },
               child: const Text('BUY NOW'),
             ),
           ],
