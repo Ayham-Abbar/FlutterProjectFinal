@@ -5,6 +5,7 @@ import 'package:flutter_application_2/Pages/Global/Menu/menu.dart';
 import 'package:flutter_application_2/Pages/Global/Response/product.dart';
 import 'package:flutter_application_2/Pages/Products/widgetProduct.dart';
 import 'package:flutter_application_2/Pages/Services/api.dart';
+import 'package:provider/provider.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -20,12 +21,12 @@ class _ProductPageState extends State<ProductPage> {
   bool isLoding = false;
   bool isLodingMore = false;
   List catogaries = [];
-  String nameCatogaries = 'All';
 
   ScrollController scrollController = ScrollController();
   @override
   void initState() {
     getAllProduct('products', {'limit': limit, 'skip': skip});
+    // getAllProduct();
     getAllCatogaries();
     scrollController.addListener(() async {
       if (scrollController.position.pixels ==
@@ -36,8 +37,8 @@ class _ProductPageState extends State<ProductPage> {
           isLodingMore = true;
         });
         skip += limit;
-        await getAllProduct('products', {'limit': limit, 'skip': skip});
-
+        await getAllProduct('products/', {'limit': limit, 'skip': skip});
+        // await getAllProduct();
         setState(() {
           isLodingMore = false;
         });
@@ -62,7 +63,17 @@ class _ProductPageState extends State<ProductPage> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () async {
-                            await getAllProductToCatogaries(catogaries[index]);
+                            var pro = await getAllProductToCatogaries(
+                                catogaries[index]);
+                            List<Product> listOne = pro
+                                .map((item) => Product.fromJson(item))
+                                .toList();
+                            setState(() {
+                              products = listOne;
+                            });
+                            for (int i = 0; i < products.length; i++) {
+                              print(catogaries[index]);
+                            }
                           },
                           child: Container(
                               margin: const EdgeInsets.only(right: 1),
@@ -80,11 +91,17 @@ class _ProductPageState extends State<ProductPage> {
                 )),
             isLoding
                 ? const Center(child: CircularProgressIndicator())
-                : WidgetProduct(
-                    products: products,
-                    limit: limit,
-                    skip: skip,
-                    nameCatogaries: nameCatogaries,
+                : Consumer(
+                    builder: (BuildContext context, value, Widget? child) {
+                      // products =
+                      //     value.products.isEmpty ? products : value.products;
+
+                      return WidgetProduct(
+                        products: products,
+                        limit: limit,
+                        skip: skip,
+                      );
+                    },
                   )
           ],
         ));
@@ -113,16 +130,22 @@ class _ProductPageState extends State<ProductPage> {
     });
   }
 
-  Future<void> getAllProductToCatogaries(String name) async {
+  Future<List> getAllProductToCatogaries(String name) async {
     var res = await Api2.get('/products/category/$name');
-    print('Response body: ${res.body}'); // طباعة الاستجابة كاملة
     var jsonResponse = jsonDecode(res.body)['products'] as List;
-    List<Product> listOne =
-        jsonResponse.map((item) => Product.fromJson(item)).toList();
-    setState(() {
-      products = listOne;
-    });
+    print('Products returned for category $name: ${jsonResponse.length}');
+    return jsonResponse;
   }
+
+  // Future<void> getAllProduct() async {
+  //   var res = await Api2.get('/products');
+  //   var jsonResponse = jsonDecode(res.body)['products'] as List;
+  //   List<Product> listOne =
+  //       jsonResponse.map((item) => Product.fromJson(item)).toList();
+  //   setState(() {
+  //     products = listOne;
+  //   });
+  // }
 
   Future<void> getAllCatogaries() async {
     var res = await Api2.get('/products/category-list');

@@ -48,7 +48,7 @@ class Product {
     Dimensions dimensions;
     String warrantyInformation;
     String shippingInformation;
-    AvailabilityStatus availabilityStatus;
+    // AvailabilityStatus availabilityStatus;
     List<Review> reviews;
     ReturnPolicy returnPolicy;
     int minimumOrderQuantity;
@@ -72,7 +72,7 @@ class Product {
         required this.dimensions,
         required this.warrantyInformation,
         required this.shippingInformation,
-        required this.availabilityStatus,
+        // required this.availabilityStatus,
         required this.reviews,
         required this.returnPolicy,
         required this.minimumOrderQuantity,
@@ -101,7 +101,7 @@ class Product {
         dimensions: Dimensions.fromJson(json["dimensions"]),
         warrantyInformation: json["warrantyInformation"],
         shippingInformation: json["shippingInformation"],
-        availabilityStatus: availabilityStatusValues.map[json["availabilityStatus"]]!,
+        // availabilityStatus: availabilityStatusValues.map[json["availabilityStatus"]]!,
         reviews: List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
         returnPolicy: returnPolicyValues.map[json["returnPolicy"]]!,
         minimumOrderQuantity: json["minimumOrderQuantity"],
@@ -126,7 +126,7 @@ class Product {
         "dimensions": dimensions.toJson(),
         "warrantyInformation": warrantyInformation,
         "shippingInformation": shippingInformation,
-        "availabilityStatus": availabilityStatusValues.reverse[availabilityStatus],
+        // "availabilityStatus": availabilityStatusValues.reverse[availabilityStatus],
         "reviews": List<dynamic>.from(reviews.map((x) => x.toJson())),
         "returnPolicy": returnPolicyValues.reverse[returnPolicy],
         "minimumOrderQuantity": minimumOrderQuantity,
@@ -136,15 +136,15 @@ class Product {
     };
 }
 
-enum AvailabilityStatus {
-    IN_STOCK,
-    LOW_STOCK
-}
+// enum AvailabilityStatus {
+//     IN_STOCK,
+//     LOW_STOCK
+// }
 
-final availabilityStatusValues = EnumValues({
-    "In Stock": AvailabilityStatus.IN_STOCK,
-    "Low Stock": AvailabilityStatus.LOW_STOCK
-});
+// final availabilityStatusValues = EnumValues({
+//     "In Stock": AvailabilityStatus.IN_STOCK,
+//     "Low Stock": AvailabilityStatus.LOW_STOCK
+// });
 
 enum Category {
     BEAUTY,

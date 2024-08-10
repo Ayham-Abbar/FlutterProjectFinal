@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
 import 'package:flutter_application_2/Pages/Global/Menu/menu.dart';
 import 'package:flutter_application_2/Pages/Global/Response/product.dart';
+import 'package:provider/provider.dart';
 
 class SinglePage extends StatefulWidget {
   final Product product;
@@ -53,7 +55,9 @@ class _SinglePageState extends State<SinglePage> {
             const Spacer(),
             Row(
               children: [
-                QuantitySelector(),
+                QuantitySelector(
+                  product: widget.product,
+                ),
                 const SizedBox(width: 16),
               ],
             ),
@@ -90,23 +94,34 @@ class ColorOption extends StatelessWidget {
 }
 
 class QuantitySelector extends StatelessWidget {
+  final Product product;
+
+  const QuantitySelector({super.key, required this.product});
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          icon: const Icon(Icons.remove),
-          onPressed: () {},
-        ),
-        const Text(
-          '01',
-          style: TextStyle(fontSize: 16),
-        ),
-        IconButton(
-          icon: const Icon(Icons.add),
-          onPressed: () {},
-        ),
-      ],
+    return Consumer<Cart>(
+      builder: (context, value, child) {
+        return Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove),
+              onPressed: () {
+                value.remove(product);
+              },
+            ),
+            Text(
+              Provider.of<Cart>(context).count.toString(),
+              style: TextStyle(fontSize: 16),
+            ),
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                value.add(product);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

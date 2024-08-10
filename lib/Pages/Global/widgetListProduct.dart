@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
 import 'package:flutter_application_2/Pages/Global/Response/product.dart';
+import 'package:flutter_application_2/Pages/Services/api.dart';
+import 'package:provider/provider.dart';
 
 class ListProduct extends StatefulWidget {
   final Product product;
@@ -19,7 +22,7 @@ class _ListProductState extends State<ListProduct> {
         Expanded(
           child: Container(
             width: double.infinity,
-            padding:const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
             ),
@@ -43,8 +46,13 @@ class _ListProductState extends State<ListProduct> {
               "\$${widget.product.price}",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            IconButton(
-                onPressed: () {}, icon: Icon(Icons.add_shopping_cart_outlined))
+            Consumer<Cart>(
+              builder: (context, value, child) => IconButton(
+                  onPressed: () {
+                    value.add(widget.product);
+                  },
+                  icon: Icon(Icons.add_shopping_cart_outlined)),
+            )
           ],
         )
       ],

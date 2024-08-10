@@ -24,13 +24,10 @@ class _WidgetProductState extends State<WidgetProduct> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.all(20.0),
-        child: GridView.builder(
+          margin: const EdgeInsets.all(20.0),
+          child: GridView.builder(
             controller: widget.scrollController,
-            itemCount: widget.products.length +
-                (widget.products.length % 10 != 0
-                    ? widget.products.length % widget.limit
-                    : 0),
+            itemCount: widget.products.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 20.0,
@@ -39,19 +36,22 @@ class _WidgetProductState extends State<WidgetProduct> {
             ),
             itemBuilder: (context, index) {
               final product = widget.products[index];
+              if (product == null)
+                return Container(); // التعامل مع المنتجات الفارغة المحتملة
               return InkWell(
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => SinglePage(
-                          product: product,
-                        ))),
+                  builder: (_) => SinglePage(
+                    product: product,
+                  ),
+                )),
                 child: Container(
                   alignment: Alignment.center,
                   width: double.infinity,
                   child: ListProduct(product: product),
                 ),
               );
-            }),
-      ),
+            },
+          )),
     );
   }
 }
