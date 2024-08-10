@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Cart/Cart.dart';
 import 'package:flutter_application_2/Pages/Home/home_page.dart';
 import 'package:flutter_application_2/Pages/Products/productPage.dart';
+import 'package:flutter_application_2/Pages/auth/Login/login.dart';
+import 'package:flutter_application_2/Pages/auth/Register/register.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -39,12 +41,12 @@ class MyDrawer extends StatelessWidget {
               leading: const Icon(Icons.login),
               title: const Text('LogIn'),
               onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const ProductPage()))),
+                  MaterialPageRoute(builder: (_) => const LoginScreen()))),
           ListTile(
               leading: const Icon(Icons.arrow_circle_right_outlined),
               title: const Text('Sign Up'),
               onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const ProductPage()))),
+                  MaterialPageRoute(builder: (_) => const SignUpScreen()))),
           ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Loge Out'),
