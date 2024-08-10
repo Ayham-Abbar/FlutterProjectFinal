@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Pages/Global/Response/product.dart';
 import 'package:flutter_application_2/Pages/Global/widgetListProduct.dart';
 import 'package:flutter_application_2/Pages/Products/singleProduct.dart';
 
 class WidgetProduct extends StatefulWidget {
-  final List products;
-  final int limit;
-  final int skip;
+  final List<Product> products;
+ 
 
   ScrollController scrollController = ScrollController();
   WidgetProduct(
       {super.key,
       required this.products,
-      required this.limit,
-      required this.skip,
+      
       String nameCatogaries = 'All'});
 
   @override

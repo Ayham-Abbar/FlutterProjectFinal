@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Cart/Cart.dart';
 import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
 import 'package:flutter_application_2/Pages/Global/Menu/drawer.dart';
-import 'package:flutter_application_2/Pages/Products/productPage.dart';
 import 'package:provider/provider.dart';
 
 class Menu extends StatefulWidget {

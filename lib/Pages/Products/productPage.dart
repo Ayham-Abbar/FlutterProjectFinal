@@ -98,8 +98,7 @@ class _ProductPageState extends State<ProductPage> {
 
                       return WidgetProduct(
                         products: products,
-                        limit: limit,
-                        skip: skip,
+
                       );
                     },
                   )

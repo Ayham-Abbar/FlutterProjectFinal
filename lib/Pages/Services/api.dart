@@ -1,7 +1,4 @@
-import 'dart:convert';
 
-import 'package:flutter_application_2/Pages/Cart/Model/cartItem.dart';
-import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -52,6 +49,15 @@ class Api2 {
     return res;
   }
 
- 
+  static Future<http.Response> getProductToHome(String path) async {
+    var url = Uri.https('dummyjson.com', path);
+    var res = await http.get(url);
+    if (res.statusCode == 200) {
+      print('Successfully get response');
+    }
+
+    return res;
+  }
+
 
 }

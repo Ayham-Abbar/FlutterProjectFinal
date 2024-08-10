@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
 import 'package:flutter_application_2/Pages/Global/Response/product.dart';
-import 'package:flutter_application_2/Pages/Services/api.dart';
 import 'package:provider/provider.dart';
 
 class ListProduct extends StatefulWidget {

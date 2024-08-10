@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pages/Cart/Model/cartModel.dart';
-import 'package:flutter_application_2/Pages/Global/stateManegment.dart';
-import 'package:flutter_application_2/Pages/Products/productPage.dart';
+import 'package:flutter_application_2/Pages/Home/home_page.dart';
 import 'package:flutter_application_2/Theme/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           theme: buildThemeData(),
           debugShowCheckedModeBanner: false,
-          home: const ProductPage(),
+          home: const HomePage(),
         ));
   }
 }
